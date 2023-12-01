@@ -1,0 +1,712 @@
+/** Shopify CDN: Minification failed
+
+Line 113:0 Transforming const to the configured target environment ("es5") is not supported yet
+Line 162:0 Transforming const to the configured target environment ("es5") is not supported yet
+Line 164:7 Transforming object literal extensions to the configured target environment ("es5") is not supported yet
+Line 165:4 Transforming const to the configured target environment ("es5") is not supported yet
+Line 168:4 Transforming const to the configured target environment ("es5") is not supported yet
+Line 168:15 Transforming array spread to the configured target environment ("es5") is not supported yet
+Line 172:7 Transforming object literal extensions to the configured target environment ("es5") is not supported yet
+Line 173:4 Transforming const to the configured target environment ("es5") is not supported yet
+Line 176:9 Transforming object literal extensions to the configured target environment ("es5") is not supported yet
+Line 177:4 Transforming const to the configured target environment ("es5") is not supported yet
+... and 16 more hidden warnings
+
+**/
+jQuery(document).ready(function () {
+  
+	var appUrl = "https://store.xecurify.com";
+	var hostName = "https://store.xecurify.com/moas";
+	var flagfield;
+	var otpvalue;
+    var password;
+
+	$('head').append('<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css">');
+	$('head').append('<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput-jquery.js"></script>');
+	$('head').append('<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput-jquery.min.js"></script>');
+	$('head').append('link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js">');
+	$('head').append('<meta name="viewport" content="width=device-width, initial-scale=1" />');
+	$('head').append("<form id='verifyotp' action='" + appUrl + "/moas/rest/shopify/api/auth/verifyOtp2fa' method='GET'> " +
+		"<input type='text' id='txid' name='txid'></input>" +
+		"<input type='text' id='mobilenumber' name='mobilenumber'></input>" +
+		"<input type='text' id='otp' name='otp'></input>" +
+		"<input type='text' id='shop' name='shop'></input>" +
+		"<input type='text' id='shopcheckouturl' name='shopcheckouturl'></input>" +
+		"</form>");
+  $('head').append("<form id='verifyotps' action='" + appUrl + "/moas/rest/shopify/api/auth/register/verifyOtp2fa' method='GET'> " +
+		"<input type='text' id='txid' name='txid'></input>" +
+		"<input type='text' id='mobilenumber' name='mobilenumber'></input>" +
+		"<input type='text' id='otp' name='otp'></input>" +
+		"<input type='text' id='shop' name='shop'></input>" +
+		"<input type='text' id='shopcheckouturl' name='shopcheckouturl'></input>" +
+//         "<input type='text' id='first_name' name='first_name'></input>" +
+//         "<input type='text' id='last_name' name='last_name'></input>" +
+        "<input type='text' id='email' name='email'></input>" +
+        "<input type='text' id='password' name='password'></input>" +
+		"</form>");
+  
+  password = Math.random().toString(36).substring(3);
+
+
+// 	$('#customer_login').prepend('<div class=header_login id=myHeader_login ><p style=text-align:center><input type=button style=cursor:pointer;background:' + widgetBgcolor + ';width:' + widgetWidth + ';height:' + widgetHeight + ';color:' + widgetFontcolor + '; class =btn btn-primary id=my_button value=\'' + widgetName + '\' onclick="popup()"></p></div>');
+
+	$('body').append(
+		'<div id="MOLoginModal" class="modal" style="display: none; display: none; /* Hidden by default */ position: fixed; /* Stay in place */ z-index: 999; /* Sit on top */ padding-top: 5%; /* Location of the box */ left: 0;	top: 0;	width: 100%; /* Full width */ height: 100%; /* Full height */	overflow: auto; /* Enable scroll if needed */ background-color: rgb(0,0,0,0.6); /* Fallback color */background-position:left;background-size:cover; /* Black w/ opacity */	opacity:1;" onload="OTPInput();">' +
+
+		'<div class="mo-modal-content" style="height: 543px;width:724px; ">' +
+
+ 		'<p><span id="MOclosebutton" class="close" style="float: right;font-size: 21px;font-weight: 700;line-height: 1;color: #000;text-shadow: 0 1px 0 #fff;filter: alpha(opacity=100);opacity: 1; cursor: pointer">x</span></p>' +
+		// '<p id="MOheading" style="color:#0d0d0d; text-align: center; font-weight: 600; font-size: 22px; display:inline-block; font-family:sans-serif ; border-bottom: 3px solid #d47303;" >OTP  VERIFICATION</p><br><br>' +
+		'<p style="text-align: center;color: #131212;font-weight: 400;font-family: roboto;font-size: 30px;width: 87%;margin-left: 7%;margin-top:8%;" id="mobileNumberText">Enter your phone number to continue browsing the discounted offers.</p><br>' +
+        '<ul class="lineContainer" id="hrLine"><li class="mo_hrLink"></li><li class="mo_hrLink"></li></ul>' +
+		// '<hr id="hrLine" style="height:2px; background:black;margin-top: -50px;width: 60%;margin-left: 20%;">' +
+        '<p style="display:none;" id="otpText">Enter the OTP received on your mobile.</p>' +
+        '<p style="display:none;" id="numberVal"></p>' +
+        '<label for="mobileNumber" id="mobileNumberLabel" class="form-label" style="display: block;margin-left:20%;text-align: left;margin-bottom: 15px;font-weight: 400;line-height: 23.44px;font-family: roboto;font-size: 20px;">Contact Number</label>' +
+		'<input type="text" id="mobileNumber" style="display:inline-block; background:transparent;color:#0d0d0d;border-radius: 5px;padding:18px 36px;font-size:14px; margin:5px; width:100%;border: 2px solid;" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57));">' +
+		'<div id="input-code" style="margin-top: 30px;padding: 10px;display: flex; margin: auto; justify-content: space-evenly; ">'+
+	    '<input type="text" id="otpinput1" class="passInput" style="display:none;" maxlength="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" required>'+
+        '<input type="text" id="otpinput2" class="passInput" style="display:none;" maxlength="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" required>'+
+        '<input type="text" id="otpinput3" class="passInput" style="display:none;" maxlength="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" required>'+
+        '<input type="text" id="otpinput4" class="passInput" style="display:none;" maxlength="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" required>'+
+		'</div><br><br>' +
+        '<div style="margin-bottom: 23px;margin-top:-15px;"><a href="#" id="resendButton" style="display:none;">Didn`t get OTP? Send OTP</a></div>' +
+        '<div style="margin-bottom: 10px;"><a href="#" id="changeButton" style="display:none;">Change Phone Number</a></div>' +
+		'<button id="verifyButton" class="btn" style="display:none; -webkit-appearance: button; cursor: pointer">SUBMIT</button>' +
+        '<button id="registerButton" class="btn" style="display:none; -webkit-appearance: button; cursor: pointer">SUBMIT</button>' +
+
+
+		'<span id="timer" style="color:#318cd0"></span>' +
+
+		
+
+		'<button id="submitButton" class="btn" style="cursor: pointer;background: transparent;margin-bottom:20px;width: 60%;border-radius: 5px 5px 5px 5px;color: black; font-size:17px;padding:13px 60px;margin-top: -15px;border: 2px solid;font-family: roboto;">Request OTP</button><br>' +
+        '<label id="mobileError" style="color: #000000;font-size: 14px;font-family: roboto;font-weight: 400;"></label><br>' +
+		'</div>' +
+
+		'</div>');
+
+
+$('body').append(
+	'<div id="updateModal" class="modal" style="display: none; display: none; /* Hidden by default */ position: fixed; /* Stay in place */ z-index: 999; /* Sit on top */ padding-top: 5%; /* Location of the box */ left: 0;	top: 0;	width: 100%; /* Full width */ height: 100%; /* Full height */	overflow: auto; /* Enable scroll if needed */ background-color: rgb(0,0,0,0.6); /* Fallback color */background-position:left;background-size:cover;  /* Black w/ opacity */	opacity:1;">' +
+
+	'<div class="mo-modal-content" style="height: 543px;width:724px; ">' +
+
+	'<p><span id = "MOclosebuttonprofile" class="close" style="float: right;font-size: 21px;font-weight: 700;line-height: 1;color: #000;text-shadow: 0 1px 0 #fff;filter: alpha(opacity=20);opacity: .2; cursor: pointer">x</span></p>' +
+	'<p id="MOupdateheading" style="color:#0d0d0d;text-align: center;font-weight: 400;font-size: 22px; display:inline-block;font-family: roboto;" >INFORMATION</p><br><br>' +
+	'<p style="color: #131212;font-weight: 600; font-family:sans-serif;font-size: 18px;text-align: left;width: 60%;margin-left: 20%;border-radius: 10px;" id="userEmailText">Email</p>' +
+	'<input type="text" style="display: block; color:#0d0d0d;padding: 12px 36px;text-align: center; font-size:14px;width: 60%;margin-bottom: 40px;margin-left: 20%;border: 2px solid #000000;border-radius: 5px;background: transparent;"  id="userEmail">' +
+// 	'<hr style="margin: 4rem 0;">' +
+	'<p style="text-align: center; color: #131212; font-weight: 600; font-family:sans-serif; font-size: 18px;" id="MobileNumber">Enter Mobile Number</p>' +
+	'<input type="text" style="display:inline-block; background-color: #f5f4f4; color:#0d0d0d; padding:18px 36px; text-align: center; font-size:14px; margin:5px; width:100%; border: 2px solid #f6f6f6;"  id="updateMobileNumber" >' +
+	'<label id="mobileError" style="color:#de621b;"></label><br>' +
+	// '<hr style="margin: 4rem 0;">' +
+     
+	'<button id="updatenumbersubmit" class="btn" style="cursor: pointer;background-color: transparent;border: 2px solid black;border-radius: 5px 5px 5px 5px;color: black; font-size:17px; padding:13px 60px;width: 60%;font-family: roboto;font-weight: 400;">CONTINUE</button><br>' +
+	'</div>' +
+
+	'</div>');
+
+var Hash_String = window.location.search;
+var CheckoutUrl = window.location.pathname;
+if (CheckoutUrl.charAt(0) == "/") CheckoutUrl = CheckoutUrl.substr(1);
+const Hash_Param = new URLSearchParams(Hash_String);
+var showOnce = true;
+  // setTimeout(functionInject, 3000);
+  $(window).on('scroll', function(){
+    var s = $(window).scrollTop(),
+        d = $(document).height(),
+        c = $(window).height();  
+    var scrollPercent = (s / (d - c)) * 100;    
+    console.clear();
+    console.log(scrollPercent);
+    if (scrollPercent > 50) {
+      if(window.location.pathname == '/pages/online-tuition'){
+        if ((Hash_Param.get('utm_source' ) == 'google' || Hash_Param.get('utm_source' ) == 'Facebook' || Hash_Param.get('utm_source' ) == 'Twitter' || Hash_Param.get('utm_source' ) == 'Instagram' || Hash_Param.get('utm_source' ) == 'Affiliate' )){
+          if(showOnce){
+            console.log('showOnce',showOnce);
+            document.getElementById('MOLoginModal').style.display = 'block';  
+          } else {
+            document.getElementById('MOLoginModal').style.display = 'none';  
+            
+          }
+        }
+      
+      }
+    }
+  })
+  
+$("#mobileNumber").keyup(function(event) {
+    if (event.keyCode === 13) {
+        $("#submitButton").click();
+    }
+});
+
+$("#otpinput4").keyup(function(event) {
+    if (event.keyCode === 13) {
+        $("#verifyButton").click();
+    }
+});
+
+$.getScript("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js", function () {
+	flagnum = document.querySelector("#mobileNumber");
+	flagfield = window.intlTelInput(flagnum, ({
+		separateDialCode: true,
+		hiddenInput: "full_phone",
+		initialCountry: "in",
+        preferredCountries: ["in"],
+		utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+	}));
+});
+
+const $inp = $(".passInput");
+$inp.on({
+  paste(ev) { // Handle Pasting
+    const clip = ev.originalEvent.clipboardData.getData('text').trim();
+    // Allow numbers only
+    if (!/\d{6}/.test(clip)) return ev.preventDefault(); // Invalid. Exit here. Split string to Array or characters
+    const s = [...clip];
+    // Populate inputs. Focus last input.
+    $inp.val(i => s[i]).eq(5).focus(); 
+  },
+  input(ev) { // Handle typing
+    const i = $inp.index(this);
+    if (this.value) $inp.eq(i + 1).focus();
+  },
+  keydown(ev) { // Handle Deleting 
+    const i = $inp.index(this);
+    if (!this.value && ev.key === "Backspace" && i) $inp.eq(i - 1).focus();
+  }
+});
+
+
+ var cartCookieValue =  getCookie("cart");
+ if (typeof cartCookieValue !== 'undefined'){
+    createCookie("cart",cartCookieValue,15);
+}
+
+
+var styles = '.mo-modal-content {' +
+	'background-color: #fcf8ff;margin: auto;padding: 20px;border: 1px solid #e6e6e6;width: 30%;text-align: center}'+
+	'html {-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%}' +
+	'body {line-height: 1.1; color: #333; background-color: #fff;}'+
+	'div[class^="iti__flag"] { display: inline-block ;}'+
+    '.iti{ width: 60% !important; }' +
+    '.rule {height: 4px;background: #000;}' +
+    '.rule:before, .rule:after {content: ``; height: 10px; width: 10px; border-radius: 10px; float: left;background: #000;margin-top: -3px;}' +
+    '.rule:after {float: right;}' +
+    '#submitButton:hover{background:black !important;color:white !important;}' +
+    '#resendButton{opacity:0.3 !important}' +
+    '#changeButton{opacity:0.3 !important}' +
+    '.lineContainer{border-top: 1px solid #000;display: flex;list-style: none;padding: 0;justify-content: space-between;align-items: stretch;align-content: stretch;width: 60%;margin-top: -16px;margin-left: 20%;margin-bottom: 40px;}' +
+    '.mo_hrLink{position: relative;margin-top: 10px;}' +
+    '.mo_hrLink::after{content: "";width: 7px;height: 7px;background: black;position: absolute;border-radius: 10px;top: -14px;left: 50%;transform: translatex(-50%);border: 2px solid black;}' +
+	'@media (max-width : 1448px){ .mo-modal-content {' +
+	'position: relative; top: 0; left: 0;' +
+      '}'+
+    '}'+
+    '@media (max-width : 476px){ .mo-modal-content {' +
+    	'width: 90% !important;background: #fcf8ff;height: 400px !important;border: none !important;margin-top: 20% !important;' +
+      '}'+
+      '#mobileNumberText{' +
+        'font-size:18px !important;width:100% !important;margin-left:0 !important;'+
+      '}' +
+      '#mobileNumberLabel{' +
+        'font-size:14px !important; margin-botto:10px !important;line-height: 16.41px !important;margin-left:0 !important;'+
+      '}' +
+      '.iti{' +
+        'width:100% !important;'+
+      '}' +
+      '#mobileNumber{' +
+        'color:#0d0d0d !important;border-radius: 4px !important;height: 42px !important; margin: 0 !important;font-size:14px !important; width:100% !important;border: 1px solid !important;'+
+      '}' +
+      '#submitButton{' +
+        'border-radius: 4px !important;height: 42px !important;font-size:14px !important; width:90% !important;background: #ffffff3d !important;margin-top:-40px !important;position:absolute !important; left: 5% !important; padding: 0 !important'+
+      '}' +
+      '#otpText{' +
+        'font-size:17px !important;'+
+      '}' +
+      '.passInput{' +
+        'height:42px !important;width: 42px !important'+
+      '}' +
+      '#registerButton{' +
+        'height:39px !important;width: 90% !important;margin-bottom:10px !important; font-size:15px !important; padding: 0 !important'+
+      '}' +
+      '#input-code{' +
+        'width:80% !important;'+
+      '}' +
+      '#MOLoginModal{' +
+        ''+
+      '}' +
+      '#numberVal{' +
+        'font-size:15px !important;'+
+      '}' +
+      '.lineContainer{' +
+        'margin-top:-26px !important;margin-left:15%; width:70%;'+
+      '}' +
+    '}'+
+      '@media (min-width : 476px) and (max-width: 725px) { .mo-modal-content {' +
+    	'width: 90% !important;' +
+      '}'+
+      '#mobileNumberText{' +
+        'font-size:25px !important;width:100% !important;margin-left:0 !important;'+
+      '}' +
+      '.passInput{' +
+        'height:60px !important;width: 60px !important'+
+      '}' +
+      '#registerButton{' +
+        'height:45px !important;width: 90% !important;margin-bottom:10px !important;'+
+      '}' +
+      '#numberVal{' +
+        'font-size:18px !important;'+
+      '}' +
+    '}'+
+    '.iti--separate-dial-code .iti__selected-flag { background-color: transparent !important; padding: 0 6px 0 12px !important;  }'
+	'#MOLoginModal{'+
+    ' padding-top: 8%; background-color: rgba(0,0,0,0.4); opacity:1}'+
+	'@media (max-width : 420px){ #MOLoginModal .mo-modal-content {' +
+	'background-color: rgba(0,0,0,0.4) box-shadow: 2px 2px 6px 2px; margin: auto; padding: 20px; border: 1px solid #888; width: 92%; text-align:center;' +
+    '}'+
+    '}'+
+	'#updateModal{'+
+    ' padding-top: 8%; background-color: rgba(0,0,0,0.4); opacity:1}'+
+	'@media (max-width : 420px){ #updateModal .mo-modal-content {' +
+	'background-color: rgba(0,0,0,0.4) box-shadow: 2px 2px 6px 2px; margin: auto; padding: 20px; border: 1px solid #888; width: 92%; text-align:center;' +
+    '}'+
+	
+	'.close {color: #aaaaaa; float: right; position: relative; top: -16px; font-size: 28px; font-weight: bold;}' +
+
+	'.close:hover,' +
+	'.close:focus { color: #000; text-decoration: none; cursor: pointer; }' +
+	'.modal { display: none; /* Hidden by default */ position: fixed; /* Stay in place */ z-index: 999; /* Sit on top */ padding-top: 5%; /* Location of the box */ left: 0;	top: 0;	width: 100%; /* Full width */ height: 100%; /* Full height */	overflow: auto; /* Enable scroll if needed */ background-color: rgb(0,0,0); /* Fallback color */ background-color: rgba(0,0,0,0.4); /* Black w/ opacity */	opacity:1; }';
+
+	
+	  
+var styleSheet = document.createElement("style");
+styleSheet.type = "text/css";
+styleSheet.innerText = styles;
+document.head.appendChild(styleSheet);
+document.getElementById('MOclosebutton').onclick = function () {
+  document.getElementById('MOLoginModal').style.display = 'none';
+  showOnce = false; //do not show popup again till page reload
+}
+document.getElementById('MOclosebuttonprofile').onclick = function () {
+	document.getElementById('updateModal').style.display = 'none';
+}
+
+var current_url = window.location + " ";
+if (current_url.indexOf("account") > 0 && current_url.indexOf("account/login") < 0 && current_url.indexOf("account/register") < 0) {
+	//var els1 = document.getElementById("customer_logout_link");
+	var anchors = document.querySelectorAll('a[href*="/account/addresses"]');
+    var els1 = anchors[0];
+	var el = document.createElement("div");
+	el.innerHTML = '<a href="#" id="profile_update">Update Profile</a><br><br>';
+
+	els1.parentNode.insertBefore(el, els1);
+	$.ajax(
+		{
+			url: appUrl + "/moas/rest/shopify/getuserinfo2fa?shop=" + window.location.hostname + "&id=" + ShopifyAnalytics.meta.page.customerId,
+			type: "GET",
+			headers: { 'Customer-Key': '19682', 'Timestamp': '1611582714234', 'Authorization': 'f32201d6adfd872acc19df58b606166e5e214678275998c2900a71978f1734e22bf8b71b4c0588b5d5022e497008bb9b76d182156dd4f371c1435935d517e0db' },
+			success: function (result) {
+				if (result.status == 'success') {
+
+					document.getElementById("userEmail").value = result.email;
+					if (result.phone) {
+						document.getElementById("updateMobileNumber").value = result.phone;
+
+					}
+
+				}
+			},
+			error: function (xhr, status, p3, p4) {
+				var err = "Error " + " " + status + " " + p3;
+				if (xhr.responseText && xhr.responseText[0] == "{")
+					err = JSON.parse(xhr.responseText).message;
+				alert(err);
+			}
+		});
+}
+
+
+
+if (document.getElementById("profile_update")) {
+	document.getElementById("profile_update").addEventListener('click', function () {
+
+		document.getElementById('updateModal').style.display = 'block';
+	});
+}
+document.getElementById("updatenumbersubmit").addEventListener('click', function () {
+
+	mobileErrorHandler.innerHTML = "";
+	let emailid ="+"+ document.getElementById("updateMobileNumber").value + "@" + window.location.hostname;
+	$.ajax(
+		{
+			url: appUrl + "/moas/rest/shopify/updateuserinfo2fa?shop=" + window.location.hostname + "&id=" + ShopifyAnalytics.meta.page.customerId  + "&number=" + document.getElementById("updateMobileNumber").value + "&email=" + emailid,
+			type: "GET",
+			headers: { 'Customer-Key': '19682', 'Timestamp': '1611582714234', 'Authorization': 'f32201d6adfd872acc19df58b606166e5e214678275998c2900a71978f1734e22bf8b71b4c0588b5d5022e497008bb9b76d182156dd4f371c1435935d517e0db' },
+			success: function (result) {
+
+				if (result.status == 'true') {
+					alert("Your profile has been updated!")
+					document.getElementById("mobileError").innerHTML = "";
+					// console.log("sucess");
+					document.getElementById('updateModal').style.display = 'none';
+
+				}
+				else if (result.status == 'false') {
+					window.alert("Phone number has already been taken")
+				}
+			},
+			error: function (xhr, status, p3, p4) {
+				var err = "Error " + " " + status + " " + p3;
+				if (xhr.responseText && xhr.responseText[0] == "{")
+					err = JSON.parse(xhr.responseText).message;
+				alert(err);
+			}
+		}
+	);
+
+});
+
+var submitButtonHandle = document.getElementById('submitButton');
+var regsubmitButtonHandle = document.getElementById('updatenumbersubmit');
+let mobileNumberHandle = document.getElementById('mobileNumber')
+let mobileNumberTextHandle = document.getElementById('mobileNumberText')
+let otpTextHandle = document.getElementById('otpText')
+let otp1Handle = document.getElementById('otpinput1')
+let otp2Handle = document.getElementById('otpinput2')
+let otp3Handle = document.getElementById('otpinput3')
+let otp4Handle = document.getElementById('otpinput4')
+// let otp5Handle = document.getElementById('otpinput5')
+// let otp6Handle = document.getElementById('otpinput6')
+let mobileErrorHandler = document.getElementById("mobileError");
+let verifyButtonHandle = document.getElementById('verifyButton')
+let registerButtonHandle = document.getElementById('registerButton')
+var txId;
+let resendButtonHandle = document.getElementById('resendButton');
+let changeButtonHandle = document.getElementById('changeButton');
+var phoneNumber;
+var contact;
+var flag = document.createElement('style');
+
+  submitButtonHandle.addEventListener('click', function () {
+	phoneNumber = flagfield.getNumber();
+	contact = phoneNumber.substring(1);
+	if (flagfield.isValidNumber()) {
+		mobileErrorHandler.innerHTML = "Please wait. We are sending OTP on your Mobile Number";
+        document.getElementById('updateModal').style.display = 'none';
+
+		$.ajax(
+			{
+				url: appUrl + "/moas/rest/shopify/api/auth/otprequest2fa?shop=" + window.location.hostname + "&number=" + contact + "&action=register",
+				type: "GET",
+				headers: { 'Customer-Key': '19682', 'Timestamp': '1611582714234', 'Authorization': 'f32201d6adfd872acc19df58b606166e5e214678275998c2900a71978f1734e22bf8b71b4c0588b5d5022e497008bb9b76d182156dd4f371c1435935d517e0db' },
+				success: function (result) {
+                  
+					if (result.status == 'SUCCESS') {
+                      
+						mobileErrorHandler.innerHTML = "";
+
+						mobileNumberHandle.style = 'display:none'
+
+						mobileNumberTextHandle.style = 'display:none'
+
+						submitButtonHandle.style = 'display:none'
+
+                        $('#hrLine').hide();
+
+                        $('#mobileNumberLabel').hide();
+
+                        document.getElementById('numberVal').style = 'display: block;font-family: roboto;font-weight: 600;font-size: 27px;color: black;'
+                      
+                        document.getElementById('numberVal').innerHTML = phoneNumber;
+
+						otpTextHandle.style = 'display: block;color: rgb(19, 18, 18);font-weight: 400;font-family: roboto;font-size: 22px;margin-top: 8%;'
+
+						otp1Handle.style = 'display: inline-block;text-align: center;line-height: 8px;font-size: 20px;height: 60px;background: rgb(246, 246, 246);width: 60px;border-radius: 50%;border: 1px solid rgb(114, 61, 146);margin-bottom: 5px;padding: 0px !important;'
+
+						otp2Handle.style = 'display: inline-block;text-align: center;line-height: 8px;font-size: 20px;height: 60px;background: rgb(246, 246, 246);width: 60px;border-radius: 50%;border: 1px solid rgb(114, 61, 146);margin-bottom: 5px;padding: 0px !important;'
+
+						otp3Handle.style = 'display: inline-block;text-align: center;line-height: 8px;font-size: 20px;height: 60px;background: rgb(246, 246, 246);width: 60px;border-radius: 50%;border: 1px solid rgb(114, 61, 146);margin-bottom: 5px;padding: 0px !important;'
+
+						otp4Handle.style = 'display: inline-block;text-align: center;line-height: 8px;font-size: 20px;height: 60px;background: rgb(246, 246, 246);width: 60px;border-radius: 50%;border: 1px solid rgb(114, 61, 146);margin-bottom: 5px;padding: 0px !important;'
+
+						// verifyButtonHandle.style = 'display:none'
+                        
+                        verifyButtonHandle.style = 'cursor: pointer;border: 1px solid transparent;display: inline-block;background-color: #723D92;border-radius: 5px;color: white;width: 45%;height: 50px;font-size: 17px;padding: 13px 60px;'
+
+						// verifyButtonHandle.style = 'cursor: pointer;border: 1px solid transparent;display: inline-block;background-color: #723D92;border-radius: 5px;color: white;width: 45%;height: 50px;font-size: 17px;padding: 13px 60px;'
+
+                        resendButtonHandle.style = 'display: inline-block;color: #000000;text-decoration: none;font-family: roboto;';
+
+						changeButtonHandle.style = 'display: inline-block;color: #000000;position: relative;top: -10px;text-decoration: none;font-family: roboto;';
+
+						flag.innerHTML = '.iti__selected-flag[class^="iti__"] { display: none; }';
+
+                        document.head.appendChild(flag);
+
+						// console.log(result);
+						txId = result.txId;
+
+					}
+				},
+				error: function (xhr, status, p3, p4) {
+					var err = "Error " + " " + status + " " + p3;
+					if (xhr.responseText && xhr.responseText[0] == "{")
+						err = JSON.parse(xhr.responseText).message;
+					alert(err);
+				}
+			});
+	}
+	else {
+		alert('Invalid phone number.');
+	}
+});
+
+
+
+resendButtonHandle.addEventListener('click', function () {
+	phoneNumber = flagfield.getNumber();
+	contact = phoneNumber.substring(1);
+      if (Hash_Param.has('txid')) {
+      contact = Hash_Param.get('mobilenumber');
+    }
+	mobileErrorHandler.innerHTML = "Please Wait. We are sending OTP again.";
+	$.ajax(
+		{
+			url: appUrl + "/moas/rest/shopify/api/auth/otprequest2fa?shop=" + window.location.hostname + "&number=" + contact + "&action=register",
+			type: "GET",
+			headers: { 'Customer-Key': '19682', 'Timestamp': '1611582714234', 'Authorization': 'f32201d6adfd872acc19df58b606166e5e214678275998c2900a71978f1734e22bf8b71b4c0588b5d5022e497008bb9b76d182156dd4f371c1435935d517e0db' },
+			success: function (result) {
+
+				if (result.status == 'SUCCESS') {
+
+					mobileErrorHandler.innerHTML = "";
+
+					mobileNumberHandle.style = 'display:none'
+
+					mobileNumberTextHandle.style = 'display:none'
+
+					submitButtonHandle.style = 'display:none'
+
+                    $('#mobileNumberLabel').hide();
+
+                    $('#hrLine').hide();
+
+                    document.getElementById('numberVal').style = 'display: block;font-family: roboto;font-weight: 600;font-size: 27px;color: black;'
+                      
+                    document.getElementById('numberVal').innerHTML = phoneNumber;
+
+					otpTextHandle.style = 'display: block;color: rgb(19, 18, 18);font-weight: 400;font-family: roboto;font-size: 22px;margin-top: 8%;'
+
+					otp1Handle.style = 'display: inline-block;text-align: center;line-height: 8px;font-size: 20px;height: 60px;background: rgb(246, 246, 246);width: 60px;border-radius: 50%;border: 1px solid rgb(114, 61, 146);margin-bottom: 5px;padding: 0px !important;'
+
+					otp2Handle.style = 'display: inline-block;text-align: center;line-height: 8px;font-size: 20px;height: 60px;background: rgb(246, 246, 246);width: 60px;border-radius: 50%;border: 1px solid rgb(114, 61, 146);margin-bottom: 5px;padding: 0px !important;'
+
+					otp3Handle.style = 'display: inline-block;text-align: center;line-height: 8px;font-size: 20px;height: 60px;background: rgb(246, 246, 246);width: 60px;border-radius: 50%;border: 1px solid rgb(114, 61, 146);margin-bottom: 5px;padding: 0px !important;'
+
+					otp4Handle.style = 'display: inline-block;text-align: center;line-height: 8px;font-size: 20px;height: 60px;background: rgb(246, 246, 246);width: 60px;border-radius: 50%;border: 1px solid rgb(114, 61, 146);margin-bottom: 5px;padding: 0px !important;'
+
+					resendButtonHandle.style = 'display: inline-block;color: #000000;text-decoration: none;font-family: roboto;';
+
+					changeButtonHandle.style = 'display: inline-block;color: #000000;position: relative;top: -10px;text-decoration: none;font-family: roboto;';
+
+					// console.log(result);
+					txId = result.txId;
+
+				}
+				else if (result.status == 'false') {
+                  	document.getElementById('updateModal').style.display = 'block';
+
+				}
+			},
+			error: function (xhr, status, p3, p4) {
+				var err = "Error " + " " + status + " " + p3;
+				if (xhr.responseText && xhr.responseText[0] == "{")
+					err = JSON.parse(xhr.responseText).message;
+				alert(err);
+			}
+		});
+});
+
+
+changeButtonHandle.addEventListener('click', function () {
+	phoneNumber = flagfield.getNumber();
+	contact = phoneNumber.substring(1);
+
+    // if (flagfield.isValidNumber()) {
+
+	mobileErrorHandler.innerHTML = "Please change your Mobile Number"
+
+	mobileNumberTextHandle.style = 'display: inline-block;color: rgb(19, 18, 18);font-weight: 400;font-family: roboto;font-size: 23px;width: 87%;margin-top: 8%;margin-bottom: 30px;'
+
+	mobileNumberHandle.style = 'display:inline-block; background:transparent;color:#0d0d0d;border-radius: 5px;padding:13px 50px;font-size:14px; margin:5px; width:100%;border: 2px solid;'
+
+	submitButtonHandle.style = 'cursor: pointer; background: transparent; margin-bottom: 20px; width: 60%; border: 2px solid black; font-family: roboto; border-radius: 5px; color: black; font-size: 17px; padding: 13px 60px; margin-top: -15px;'
+
+    $('#registerButton').hide();
+
+    $('#resendButton').hide();
+
+    $('#changeButton').hide();
+
+    document.getElementById('numberVal').style = 'display:none;'
+
+    document.getElementById('hrLine').style = 'border-top: 1px solid #000;display: flex !important;list-style: none;padding: 0;justify-content: space-between;align-items: stretch;align-content: stretch;width: 60% !important;margin-top: -16px !important;margin-left: 20% !important;margin-bottom: 40px;margin-top: 8%;width: 87%;margin-bottom: 30px;'
+      
+	otpTextHandle.style = 'display:none'
+
+	otp1Handle.style = 'display:none'
+
+	otp2Handle.style = 'display:none'
+
+	otp3Handle.style = 'display:none'
+
+	otp4Handle.style = 'display:none'
+
+    $('.iti__selected-flag').css('display', 'flex !important')
+    
+    flag.innerHTML = '.iti__selected-flag[class^="iti__"] { display: flex; }';
+
+	verifyButtonHandle.style = 'display:none'
+
+	resendButtonHandle.style = 'display:none'
+
+	changeButtonHandle.style = 'display:none'
+
+	// txId = result.txId;
+// }
+// else {
+// 	alert('Invalid phone number.');
+// }
+});
+
+
+
+document.getElementById("verifyButton").addEventListener('click', function () {
+	otpvalue = $("#otpinput1,#otpinput2,#otpinput3,#otpinput4").map(function(){return this.value;}).get().join('');
+    
+	mobileErrorHandler.innerHTML = "Please Wait. Your OTP is being verified.";
+
+	document.getElementById('verifyotp').elements.namedItem("txid").value = txId;
+	document.getElementById('verifyotp').elements.namedItem("shop").value = window.location.hostname
+	document.getElementById('verifyotp').elements.namedItem("otp").value = otpvalue
+	document.getElementById('verifyotp').elements.namedItem("mobilenumber").value = contact
+	document.getElementById('verifyotp').elements.namedItem("shopcheckouturl").value = CheckoutUrl;
+	document.getElementById('verifyotp').submit();
+
+});
+
+  
+//   registerButtonHandle.addEventListener('click', function () {
+    
+//    otpvalue = $("#otpinput1,#otpinput2,#otpinput3,#otpinput4").map(function(){return this.value;}).get().join('');
+    
+//     var emailid = document.getElementById("userEmail").value
+//     if(emailid == ''){
+//      emailid = '+'+contact+'@'+window.location.host;
+//     }
+    
+// 	document.getElementById('verifyotps').elements.namedItem("txid").value = txId;
+// 	document.getElementById('verifyotps').elements.namedItem("shop").value = window.location.hostname
+// 	document.getElementById('verifyotps').elements.namedItem("otp").value = otpvalue
+// 	document.getElementById('verifyotps').elements.namedItem("mobilenumber").value = contact
+// 	document.getElementById('verifyotps').elements.namedItem("shopcheckouturl").value = CheckoutUrl
+// //     document.getElementById('verifyotps').elements.namedItem("first_name").value = document.getElementById("customer[first_name]").value
+// //     document.getElementById('verifyotps').elements.namedItem("last_name").value = document.getElementById("customer[last_name]").value
+//     document.getElementById('verifyotps').elements.namedItem("email").value = emailid;
+//     document.getElementById('verifyotps').elements.namedItem("password").value = password; 
+// 	document.getElementById('verifyotps').submit();
+
+// });
+
+if (Hash_Param.has('txid')) {
+  
+    document.getElementById('MOLoginModal').style.display = 'block';
+ 
+	mobileErrorHandler.innerHTML = "You have entered invalid OTP"
+
+	mobileNumberHandle.style = 'display:none'
+
+	mobileNumberTextHandle.style = 'display:none'
+
+	submitButtonHandle.style = 'display:none'
+
+    $('#mobileNumberLabel').hide();
+
+    $('#hrLine').hide();
+
+	otpTextHandle.style = 'display: block;color: rgb(19, 18, 18);font-weight: 400;font-family: roboto;font-size: 22px;margin-top: 8%;'
+
+	otp1Handle.style = 'display: inline-block;text-align: center;line-height: 8px;font-size: 20px;height: 60px;background: rgb(246, 246, 246);width: 60px;border-radius: 50%;border: 1px solid rgb(114, 61, 146);margin-bottom: 5px;padding: 0px !important;'
+
+	otp2Handle.style = 'display: inline-block;text-align: center;line-height: 8px;font-size: 20px;height: 60px;background: rgb(246, 246, 246);width: 60px;border-radius: 50%;border: 1px solid rgb(114, 61, 146);margin-bottom: 5px;padding: 0px !important;'
+
+	otp3Handle.style = 'display: inline-block;text-align: center;line-height: 8px;font-size: 20px;height: 60px;background: rgb(246, 246, 246);width: 60px;border-radius: 50%;border: 1px solid rgb(114, 61, 146);margin-bottom: 5px;padding: 0px !important;'
+
+	otp4Handle.style = 'display: inline-block;text-align: center;line-height: 8px;font-size: 20px;height: 60px;background: rgb(246, 246, 246);width: 60px;border-radius: 50%;border: 1px solid rgb(114, 61, 146);margin-bottom: 5px;padding: 0px !important;'
+
+	verifyButtonHandle.style = 'cursor: pointer;border: 1px solid transparent;margin-bottom:10px;display: inline-block;background-color: #723D92;border-radius: 10px;width: 60%;font-family: roboto;color: white;font-weight: 400;font-size: 17px;padding: 13px 60px;height: 50px;'
+
+	document.getElementById("resendButton").style = 'display: inline-block;color: #000000;text-decoration: none;font-family: roboto;';
+
+	changeButtonHandle.style = 'display: inline-block;color: #000000;position: relative;top: -10px;text-decoration: none;font-family: roboto;';
+
+	flag.innerHTML = '.iti__selected-flag[class^="iti__"] { display: none; }';
+
+    document.head.appendChild(flag);
+
+	txId = Hash_Param.get('txid');
+	contact = Hash_Param.get('mobilenumber');
+
+
+  
+}
+
+});
+
+
+function popup() {
+	document.getElementById('MOLoginModal').style.display = 'block';
+}
+
+
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+	if (event.target == document.getElementById('MOLoginModal')) {
+      document.getElementById('MOLoginModal').style.display = 'none';
+      showOnce = false; //do not show popup again till page reload
+    }
+
+	if (event.target == document.getElementById('updateModal')) {
+		document.getElementById('updateModal').style.display = 'none';
+	}
+
+}
+
+
+function getCookie(cookieName) {
+    let cookie = {};
+    document.cookie.split(";").forEach(function(el) {
+      let [key,value] = el.split("=");
+      cookie[key.trim()] = value;
+    })
+    return cookie[cookieName];
+}
+
+function createCookie(name, value, days) {
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toGMTString();
+    }
+    else {
+        expires = "";
+    }
+    document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+
+

@@ -1,0 +1,89 @@
+.nav{
+
+height: 3rem;
+
+background-color: rgb(187, 236, 236);
+display: flex;
+justify-content: space-between;
+}
+
+li {
+list-style: none;
+}
+
+a {
+text-decoration: none;
+color: black;
+}
+
+i {
+color: blue;
+}
+
+.fa-brands {
+border: 1px solid white;
+background-color: rgb(236, 232, 232);
+border-radius: 50%;
+padding: 0.2rem;
+}
+
+.nav-content1 {
+display: flex;
+justify-content: space-between;
+gap: 2rem;
+}
+
+.nav-content2 {
+display: flex;
+justify-content: space-between;
+gap: 2rem;
+}
+
+.nav-2 {
+    display: flex;
+    justify-content: space-between;
+    height: 4rem;
+    border: 2px solid gray;
+}
+
+.nav-content-2 {
+    display: flex;
+    gap: 1rem;
+}
+
+.fa-hospital {
+    color: blue;
+    font-size: 2rem;
+}
+
+.klink {
+    font-size: 2.5rem;
+    margin-top: -0.4rem;
+}
+
+.nav-content-2-1 {
+    display: flex;
+    gap: 1rem;
+}
+
+select {
+    border: none;
+    background-color: white;
+    font-size: 1rem;
+}
+
+.Appointment {
+    padding: 1.2rem;
+    background-color: blue;
+    border: none;
+    color: white;
+    margin-top: -1rem;
+    font-size: 1rem;
+}
+
+.fa-arrow-right {
+    color: white;
+    font-size: 1rem;
+    padding: 0.4rem;
+}
+

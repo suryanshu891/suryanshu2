@@ -1,0 +1,108 @@
+*{
+    margin: 0;
+    padding: 0;
+    
+}
+html{
+    font-size: 62.5%;
+}
+li{
+    list-style: none;
+}
+.container{
+    height: 5vh;
+   max-width: 100%;
+    background-color: rgb(75, 171, 203);
+    display:flex;
+    justify-content: space-between;
+
+}
+.sub1{
+    display: flex;
+    gap: 2rem;
+}
+.sub-container{
+    
+    height: 4vh; 
+    display: flex;
+    gap: 2rem;
+
+    /* padding-top: 5vh; */
+
+    
+
+}
+i{
+    padding-left: 0;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+.fa-phone{
+    /* padding-left: 6rem; */
+}
+.fa-solid{
+    color: blue;
+    font-size: 2rem;
+
+}
+.fa-brands{
+    font-size: 2rem;
+    color: blue;
+    background-color: rgb(216, 212, 212);
+    border: 1px solid gray;
+    padding: 0.5rem;
+    border-radius: 50%;
+}
+.sub-container1{
+    display: flex;
+    gap: 1rem;
+    font-size: 2rem;
+
+}
+.klinik{
+    /* font-size: 1rem; */
+    height: 4vh;
+    max-width: auto;
+    /* background-color: antiquewhite; */
+    color: blue;
+    /* border: 2px solid red; */
+    display: flex;
+    justify-content: space-between;
+    }
+.sub-klinik{
+    font-size: 1.5rem;
+    color: black;
+    display: flex;
+    gap: 1rem;
+
+
+    
+}
+select{
+    border: none;
+}
+
+
+.fa-bars{
+    
+    display: none;
+    border:2px solid green ;
+    border-radius: 20px;
+    padding: 1rem;
+
+}
+@media (max-width:768px){
+    .container{
+        display: none;
+    }
+    .sub-klinik{
+        display: none;
+    }
+    .sub-container1{
+        gap: 2rem;
+    }
+    .fa-bars{
+        display: block;
+    }
+}

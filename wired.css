@@ -1,0 +1,172 @@
+*{
+    margin: 0.1%;
+    padding: 0.1%;
+}
+html{
+    font-size: 62.5%;
+}
+li{
+    list-style: none;
+}
+.nav{
+    height: 8vh;
+max-width: auto;
+border: 2px solid gray;
+display: flex;
+justify-content: space-between;
+font-size: 1.5rem;
+
+    
+}
+.sub-nav-1{
+    color: black;
+    font-size: 1.3rem;
+    display: flex;
+    gap: 1rem;
+    /* justify-content: space-around; */
+    align-items: center;
+    
+}
+.sub-nav-2{
+    display: flex;
+    gap:1rem;
+     align-items: center;
+    
+}
+.sub-nav-3{
+    display: flex;
+    gap:1rem;
+   align-items: center; 
+}
+.fa-bars{
+    font-size: 3rem;
+}
+
+.subscribe{
+    background-color: blue;
+    color: white;
+    font-size: 1.5rem;
+    padding: 1rem;
+    border-radius: 20px;
+
+}
+.signin{
+ 
+    font-size: 2rem;
+
+}
+.sub-nav img{
+    font-size: 1.3rem;
+    color: white;
+}
+.fa-magnifying-glass{
+    font-size: 2rem;
+    display: inline;
+}
+.container{
+    height: auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    
+
+    
+}
+.todaypic{
+    background-color: black;
+    color: white;
+    font-size: 1.5rem;
+    height: 4vh;
+    width:  8vw;
+}
+.sub-container img{
+    /* margin-top: 3rem; */
+    height: 30vh;
+    width: 20vw;
+}
+.sub-container{
+    height: auto;
+    width: 25%;
+    font-size: 2rem;
+    
+    
+}
+.sub-container2{
+    height: auto;
+    width: 40%;
+    
+    
+
+}
+.sub-container3{
+    height: auto;
+    width: 30%;
+    
+    
+}
+.sub-container2 img{
+    height: 50vh;
+    width: 40vw;
+
+    
+    
+}
+.sub{
+    font-size: 3rem;
+}
+.sub-2{
+    font-size: 3rem;
+}
+.Most-Recent{
+    background-color: black;
+    font-size: 2rem;
+    color: white;
+
+    
+
+    
+
+}
+
+    
+@media (max-width:768px){
+    .sub-nav-3{
+        display: none;
+    }
+    .fa-magnifying-glass{
+        display: none;
+        overflow: hidden;
+    }
+    .signin{
+        display: none;
+    }
+.todaypic{
+
+    background-color: black;
+    color: white;
+    font-size: 1.5rem;
+    height: 4vh;
+    width:  19vw;
+}
+
+.sub-container img{
+    height: 38vh;
+    width: 70vw;
+    
+    
+    
+}
+.container{
+    flex-direction: column;
+}
+
+
+}
+
+
+
+
+    
+
+

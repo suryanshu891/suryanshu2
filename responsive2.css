@@ -1,0 +1,140 @@
+.container{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+
+
+
+}
+    
+
+
+.contain{
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+.fa-solid{
+    color: blue;
+}
+.fa-plus{
+    color: red;
+}
+.cardiology{
+    background-color: yellow;
+    height: 20rem;
+    width: 14rem;
+
+
+    
+}
+.pulmonary{
+    background-color: yellow;
+    height: 20rem;
+    width: 14rem;
+    
+
+
+}
+.neurology{
+
+    background-color: yellow;
+    height: 20rem;
+    width: 14rem;
+    
+}
+.orthopedics{
+    background-color: yellow;
+    height: 20remrem;
+    width: 14rem;
+
+    
+}
+.Dentalsurgery{
+    background-color: yellow;
+    height: 20rem;
+    width: 14rem;
+    
+}
+.Laboratory{
+    background-color: yellow;
+    height: 20rem;
+    width: 14rem;
+    
+}
+
+@media(max-width:1104px){
+    .container{
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    .cardiology{
+        background-color: yellow;
+        width: 19rem;
+        height: 14rem;
+    }
+    .cardiology i{
+        color: blue;
+        height: 3rem;
+        width: 5rem;
+
+
+    }
+    .pulmonary{
+        colour:yellow;
+        height: 3rem;
+        width: 5rem;
+    }
+    .pulmonary i{
+        color: blue;
+        height: 3rem;
+        width: 5rem;
+    }
+    .neurology{
+        color: yellow;
+        height: 3rem;
+        width: 5rem;
+
+    }
+    .neurology i{
+        color: blue;
+        height: 3rem;
+        width: 5rem;
+
+    }
+    .orthopedics{
+        color: yellow;
+        height: 3rem;
+        width: 5rem;
+    }
+    .orthopedics i{
+        color: blue;
+        height: 3rem;
+        width: 5rem;
+
+    }
+    .Dentalsurgery{
+        color: yellow;
+        height: 3rem;
+        width: 5rem;
+    }
+    .Dentalsurgery i{
+        color: blue;
+        height: 3rem;
+        width: 5rem;
+    }
+    .Laboratory{
+        color: yellow;
+        height: 3rem;
+        width: 5rem;
+    }
+    .Laboratory i{
+        color: blue;
+        height: 3rem;
+        width: 5rem;
+    }
+
+}

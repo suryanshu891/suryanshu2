@@ -1,0 +1,96 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+html{
+    font-size: 62.5%;
+
+}
+li{
+    list-style: none;
+}
+.container{
+    height: 5vh;
+    max-width: 100%;
+    background-color: aquamarine;
+    display: flex;
+    justify-content: space-between;
+
+}
+.sub-container{
+    display: flex;
+    gap: 2rem;
+    font-size: 2rem;
+
+}
+.sub1{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
+    font-size: 2rem;
+    color: blue;
+    
+
+}
+.i{
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    color: blue;
+     font-size: 2rem;
+}
+.klinik{
+    height: 5vh;
+    background-color: aliceblue;
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    
+
+
+
+
+}
+.sub-klinik{
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    gap: 4rem;
+    font-size: 3rem;
+    
+}
+.Appointment{
+    font-size: 2rem;
+    background-color: blue;
+    color: white;
+}
+.container1{
+    height: 80vh;
+    width: 100%;
+    display: flex;
+    
+
+}
+.sub-container1{
+    background-color: blue;
+    color: white;
+    width: 50%;
+    
+
+
+}
+
+.container1{
+    display: flex;
+
+}
+.img{
+    height: 30vh;
+    max-width: 50%;
+}
+.sub-container1 p{
+    font-size: 5rem;
+    font-weight: 300;
+    text-align: center;
+}

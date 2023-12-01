@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+li {
+    list-style: none;
+}
+
+.container {
+    height: 8vh;
+    width: 40%;
+    border: 2px solid red;
+    color: 8d8e92;
+    background-color: #000000;
+    background-color: RGBA(0, 0, 0, 0);
+
+}
+
+.container1 {
+    font-size: 3rem;
+
+
+}
+
+.meesho {
+    font-weight: 700;
+    font-size: 2.9rem;
+    color: #0000EE;
+     color: RGB(0, 0, 238);
+      background-color: #000000;
+       background-color: RGBA(0, 0, 0, 0);
+}
